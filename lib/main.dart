@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'conexion-firebase.dart';
-import '_splashScreen.dart';
+import 'splash_screen.dart';
 
 void main() {
   runApp(const AppCatalogo());
