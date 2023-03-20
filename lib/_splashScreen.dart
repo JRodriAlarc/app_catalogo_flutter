@@ -39,6 +39,10 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Spacer(),
             CircularProgressIndicator(),
+            Text(
+              "Bienvenido",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
             Spacer(),
           ],
         )));
