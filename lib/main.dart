@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'conexion-firebase.dart';
 import 'splash_screen.dart';
 
 void main() {
@@ -11,10 +10,10 @@ class AppCatalogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Catalogo',
-      home: new SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

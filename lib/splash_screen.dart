@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'page_login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,9 +12,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(
-        Duration(milliseconds: 1500),
+        const Duration(milliseconds: 1500),
         () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomePage())));
+            MaterialPageRoute(builder: (context) => const PageLogin())));
     super.initState();
   }
 
@@ -23,24 +23,33 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFE8F6FA),
-        body: SafeArea(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: const Color(0xFFE8F6FA),
+      body: SafeArea(
+        child: Column(
           children: <Widget>[
-            Spacer(),
-            Center(
-              child: FractionallySizedBox(
-                  widthFactor: .65,
-                  child: Container(
-                    width: 500,
-                    child: Image.asset("assets/img/logo-app.png"),
-                  )),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Spacer(),
+                  Center(
+                    child: FractionallySizedBox(
+                      widthFactor: .65,
+                      child: SizedBox(
+                        width: 300,
+                        child: Image.asset("assets/img/logo-app.png"),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  const CircularProgressIndicator(),
+                  const Spacer()
+                ],
+              ),
             ),
-            Spacer(),
-            CircularProgressIndicator(),
-            Spacer(),
           ],
-        )));
+        ),
+      ),
+    );
   }
 }
