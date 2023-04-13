@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'home_page.dart';
+import 'navbar_controller.dart';
 
 class PageLogin extends StatefulWidget {
   const PageLogin({Key? key}) : super(key: key);
@@ -132,7 +132,7 @@ class _PageLoginState extends State<PageLogin> {
                 // Lógica de inicio de sesión aquí
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => BarraNavegacion()),
                     (Route<dynamic> route) => false);
               },
               style: ElevatedButton.styleFrom(

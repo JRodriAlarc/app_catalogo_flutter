@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:convert';
-import 'detalles_producto.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     String jsonStr =
-        '[{"nombre": "Navigo Zyro PF56", "piezas": 157, "imagen": "https://img.ltwebstatic.com/images3_pi/2021/11/17/1637110871076d3c8e11fb35a6a4fc6e2f3625928f.webp", "favorito": true}, {"nombre": "Joyride Setter C3", "piezas": 243, "imagen": "https://http2.mlstatic.com/D_NQ_NP_811401-MLM49023105257_022022-O.webp", "favorito": false}, {"nombre": "Luck Aerospace", "piezas": 97, "imagen": "https://qafacol.vteximg.com.br/arquivos/ids/452712-900-900/leggins-mujer-40230362-10_2.jpg?v=637636048187470000", "favorito": false}, {"nombre": "Kein Reto SE", "piezas": 412, "imagen": "https://cdn.shopify.com/s/files/1/0244/2887/1714/products/xpt038_a27dd951-83e3-4f41-bfd3-2db2c9348dfa.jpg?v=1679788751&width=823", "favorito": false}, {"nombre": "Victus Three 56", "piezas": 215, "imagen": "https://img.ltwebstatic.com/images3_pi/2021/04/19/16188054272140c9aec824e39b65e7fb8d5737d31f_thumbnail_900x.webp", "favorito": false}]';
+        '[{"nombre": "Navigo Zyro PF56", "piezas": 157, "imagen": "https://img.ltwebstatic.com/images3_pi/2021/11/17/1637110871076d3c8e11fb35a6a4fc6e2f3625928f.webp"}, {"nombre": "Joyride Setter C3", "piezas": 243, "imagen": "https://http2.mlstatic.com/D_NQ_NP_811401-MLM49023105257_022022-O.webp"}, {"nombre": "Luck Aerospace", "piezas": 97, "imagen": "https://qafacol.vteximg.com.br/arquivos/ids/452712-900-900/leggins-mujer-40230362-10_2.jpg?v=637636048187470000"}, {"nombre": "Kein Reto SE", "piezas": 412, "imagen": "https://cdn.shopify.com/s/files/1/0244/2887/1714/products/xpt038_a27dd951-83e3-4f41-bfd3-2db2c9348dfa.jpg?v=1679788751&width=823"}, {"nombre": "Victus Three 56", "piezas": 215, "imagen": "https://img.ltwebstatic.com/images3_pi/2021/04/19/16188054272140c9aec824e39b65e7fb8d5737d31f_thumbnail_900x.webp"}]';
     productos = json.decode(jsonStr).cast<Map<String, dynamic>>();
   }
 
@@ -49,9 +46,6 @@ class _HomePageState extends State<HomePage> {
       (i) => list.skip(i * chunkSize).take(chunkSize).toList(),
     );
   }
-
-  CollectionReference datosUsuario =
-      FirebaseFirestore.instance.collection('clothes');
 
   @override
   Widget build(BuildContext context) {
@@ -166,10 +160,6 @@ class _HomePageState extends State<HomePage> {
                                   splashColor: Colors.black26,
                                   onTap: () {
                                     print("object1");
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DetallesProducto()));
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -184,33 +174,15 @@ class _HomePageState extends State<HomePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 12),
-                                              child: Text(
-                                                "${producto['piezas']} Pz",
-                                                style: GoogleFonts.poppins(
-                                                    textStyle: styleNumPiezas),
-                                              ),
+                                            Text(
+                                              "${producto['piezas']} Pz",
+                                              style: GoogleFonts.poppins(
+                                                  textStyle: styleNumPiezas),
                                             ),
-                                            IconButton(
-                                              iconSize: 28,
-                                              color: const Color(0xFF00359E),
-                                              //color: const Color(0xFF3736be),
-                                              onPressed: () {
-                                                setState(() {
-                                                  producto['favorito'] =
-                                                      !producto['favorito'];
-                                                });
-                                              },
-                                              icon: producto['favorito']
-                                                  ? const Icon(
-                                                      Icons.favorite_rounded,
-                                                    )
-                                                  : const Icon(
-                                                      Icons
-                                                          .favorite_outline_rounded,
-                                                    ),
+                                            const Icon(
+                                              Icons.favorite_outline_rounded,
+                                              color: Color(0xFF3736be),
+                                              size: 28,
                                             )
                                           ],
                                         ),
@@ -249,6 +221,126 @@ class _HomePageState extends State<HomePage> {
                 )
                 .toList(),
           ),
+          /*
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  height: 235,
+                  width: 180,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 3,
+                            blurRadius: 10,
+                            offset: const Offset(0, 3))
+                      ]),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "$numPiezas Pz",
+                              style: GoogleFonts.poppins(
+                                  textStyle: styleNumPiezas),
+                            ),
+                            const Icon(
+                              Icons.favorite_outline_rounded,
+                              color: Color(0xFF3736be),
+                              size: 28,
+                            )
+                          ],
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            'assets/img/logo-app.png',
+                            height: 150,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Example Card",
+                          style: GoogleFonts.quicksand(
+                              textStyle: styleNameProduct),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 235,
+                  width: 180,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 3,
+                            blurRadius: 10,
+                            offset: const Offset(0, 3))
+                      ]),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "$numPiezas Pz",
+                              style: GoogleFonts.poppins(
+                                  textStyle: styleNumPiezas),
+                            ),
+                            const Icon(
+                              Icons.favorite_outline_rounded,
+                              color: Color(0xFF3736be),
+                              size: 28,
+                            )
+                          ],
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            'assets/img/logo-app.png',
+                            height: 150,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Example Card",
+                          style: GoogleFonts.quicksand(
+                              textStyle: styleNameProduct),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            */
         ],
       ),
     );
